@@ -7,8 +7,10 @@ namespace server.Services.TodoListSevice
 {
     public interface ITodoListService
     {
-        Task<List<TodoList>> GetTodos();
-        Task<TodoList> GetTodoById(int id);
-        Task<List<TodoList>> AddTodo(TodoList newTodo);
+        Task<ServiceResponse<List<GetTodoDto>>> GetTodos();
+        Task<ServiceResponse<GetTodoDto>> GetTodoById(int id);
+        Task<ServiceResponse<List<GetTodoDto>>> AddTodo(AddTodoDto newTodo);
+        Task<ServiceResponse<GetTodoDto>> UpdateTodo(UpdateTodoDto updatedTodo);
+        Task<ServiceResponse<List<GetTodoDto>>> DeleteTodo(int id);
     }
 }

@@ -20,23 +20,50 @@ namespace server.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<TodoList>> Get()
+        public async Task<ActionResult<ServiceResponse<GetTodoDto>>> Get()
         {
             return Ok(await _todoService.GetTodos());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<TodoList>> GetSingle(int id)
+        public async Task<ActionResult<ServiceResponse<GetTodoDto>>> GetSingle(int id)
         {
             return Ok(await _todoService.GetTodoById(id));
         }
 
 
         [HttpPost]
-        public async Task<ActionResult<List<TodoList>>> AddTodo(TodoList newTodo)
+        public async Task<ActionResult<ServiceResponse<List<GetTodoDto>>>> AddTodo(AddTodoDto newTodo)
         {
             return Ok(await _todoService.AddTodo(newTodo));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<List<GetTodoDto>>>> UpdateTodo(UpdateTodoDto updatedTodo)
+        {
+            var response = await _todoService.UpdateTodo(updatedTodo);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ServiceResponse<GetTodoDto>>> DeleteTodo(int id)
+        {
+            var response = await _todoService.DeleteTodo(id);
+
+            if (response.Data is null)
+            {
+                return NotFound(response);
+            }
+
+            return Ok(response);
+        }
+
 
 
 

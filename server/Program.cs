@@ -1,5 +1,7 @@
 global using server.Models;
 global using server.Services.TodoListSevice;
+global using server.Dtos.Todo;
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddScoped<ITodoListService, TodoListService>();
 
 var app = builder.Build();

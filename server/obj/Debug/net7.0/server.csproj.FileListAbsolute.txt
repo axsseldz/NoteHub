@@ -31,3 +31,5 @@
 /Users/axeldiaz/Documents/development/instaNote/insta-note/server/obj/Debug/net7.0/server.pdb
 /Users/axeldiaz/Documents/development/instaNote/insta-note/server/obj/Debug/net7.0/server.genruntimeconfig.cache
 /Users/axeldiaz/Documents/development/instaNote/insta-note/server/obj/Debug/net7.0/ref/server.dll
+/Users/axeldiaz/Documents/development/instaNote/insta-note/server/bin/Debug/net7.0/AutoMapper.dll
+/Users/axeldiaz/Documents/development/instaNote/insta-note/server/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
