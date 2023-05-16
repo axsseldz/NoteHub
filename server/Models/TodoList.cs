@@ -8,7 +8,10 @@ namespace server.Models
     public class TodoList
     {
         public int Id { get; set; } = 0;
+        public string Title { get; set; } = "food";
         public string Content { get; set; } = "eat";
+
+        public DateTime CreatedDate { get; set; }
 
     }
 }

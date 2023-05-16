@@ -8,6 +8,8 @@ namespace server.Dtos.Todo
     public class UpdateTodoDto
     {
         public int Id { get; set; } = 0;
+        public string Title { get; set; } = "food";
         public string Content { get; set; } = "eat";
+
     }
 }

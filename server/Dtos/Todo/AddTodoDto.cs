@@ -7,6 +7,7 @@ namespace server.Dtos.Todo
 {
     public class AddTodoDto
     {
+        public string Title { get; set; } = "food";
         public string Content { get; set; } = "eat";
 
     }

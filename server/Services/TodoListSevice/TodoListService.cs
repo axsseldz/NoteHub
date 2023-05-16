@@ -15,18 +15,34 @@ namespace server.Services.TodoListSevice
             new TodoList {Id = 1, Content = "work"}
         };
         private readonly IMapper _mapper;
+        private readonly DataContext _context;
 
-        public TodoListService(IMapper mapper)
+        public TodoListService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
+            _context = context;
         }
         public async Task<ServiceResponse<List<GetTodoDto>>> AddTodo(AddTodoDto newTodo)
         {
             var serviceResponse = new ServiceResponse<List<GetTodoDto>>();
-            var todo = _mapper.Map<TodoList>(newTodo);
-            todo.Id = todos.Max(c => c.Id) + 1;
-            todos.Add(todo);
-            serviceResponse.Data = todos.Select(c => _mapper.Map<GetTodoDto>(c)).ToList();
+
+            try
+            {
+                var todo = _mapper.Map<TodoList>(newTodo);
+                todo.CreatedDate = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Pacific Standard Time");
+                await _context.todos.AddAsync(todo);
+                await _context.SaveChangesAsync();
+
+
+
+                serviceResponse.Data = await _context.todos.Select(c => _mapper.Map<GetTodoDto>(c)).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
             return serviceResponse;
         }
 
@@ -36,21 +52,22 @@ namespace server.Services.TodoListSevice
 
             try
             {
-                var todo = todos.First(c => c.Id == id);
+                var todo = await _context.todos.FirstOrDefaultAsync(c => c.Id == id);
 
                 if (todo is null)
-                    throw new Exception($"Note with ID '{id}' not found.");
+                    throw new Exception($"Todo with ID '{id}' not found.");
 
-                todos.Remove(todo);
+                _context.todos.Remove(todo);
+                await _context.SaveChangesAsync();
 
-                serviceResponse.Data = todos.Select(c => _mapper.Map<GetTodoDto>(c)).ToList();
-
+                serviceResponse.Data = await _context.todos
+                    .Select(c => _mapper.Map<GetTodoDto>(c))
+                    .ToListAsync();
             }
             catch (Exception ex)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
-
             }
 
             return serviceResponse;
@@ -59,8 +76,8 @@ namespace server.Services.TodoListSevice
         public async Task<ServiceResponse<GetTodoDto>> GetTodoById(int id)
         {
             var serviceResponse = new ServiceResponse<GetTodoDto>();
-            var todo = todos.FirstOrDefault(c => c.Id == id);
-            serviceResponse.Data = _mapper.Map<GetTodoDto>(todo);
+            var dbTodo = await _context.todos.FirstOrDefaultAsync(c => c.Id == id);
+            serviceResponse.Data = _mapper.Map<GetTodoDto>(dbTodo);
             return serviceResponse;
 
         }
@@ -68,7 +85,8 @@ namespace server.Services.TodoListSevice
         public async Task<ServiceResponse<List<GetTodoDto>>> GetTodos()
         {
             var serviceResponse = new ServiceResponse<List<GetTodoDto>>();
-            serviceResponse.Data = todos.Select(c => _mapper.Map<GetTodoDto>(c)).ToList();
+            var dbTodos = await _context.todos.ToListAsync();
+            serviceResponse.Data = dbTodos.Select(c => _mapper.Map<GetTodoDto>(c)).ToList();
             return serviceResponse;
         }
 
@@ -78,20 +96,22 @@ namespace server.Services.TodoListSevice
 
             try
             {
-                var todo = todos.FirstOrDefault(c => c.Id == updatedTodo.Id);
+                var todo = await _context.todos.FirstOrDefaultAsync(c => c.Id == updatedTodo.Id);
 
                 if (todo is null)
-                    throw new Exception($"Note with ID '{updatedTodo.Id}' not found.");
+                    throw new Exception($"Todo with ID '{updatedTodo.Id}' not found.");
 
+                todo.Title = updatedTodo.Title;
                 todo.Content = updatedTodo.Content;
-                serviceResponse.Data = _mapper.Map<GetTodoDto>(todo);
+                todo.CreatedDate = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.UtcNow, "Pacific Standard Time");
+                await _context.SaveChangesAsync();
 
+                serviceResponse.Data = _mapper.Map<GetTodoDto>(todo);
             }
             catch (Exception ex)
             {
                 serviceResponse.Success = false;
                 serviceResponse.Message = ex.Message;
-
             }
 
             return serviceResponse;
