@@ -24,7 +24,7 @@ export default function SideBar() {
     }
 
     return (
-        <div className="bg-light-green flex flex-col space-y-10 p-6 pt-12 w-80 h-screen">
+        <div className="bg-light-green flex flex-col space-y-10 p-6 pt-7 min-w-fit h-screen">
             <div className="h-28 flex items-center justify-center space-x-3">
                 <Image
                     src="https://cdn-icons-png.flaticon.com/512/564/564445.png"
