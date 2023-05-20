@@ -74,8 +74,8 @@ export default async function NotePage({ params: { noteId } }: PageProps) {
                     </div>
                 </div>
                 <div className='flex flex-col  space-y-2 bg-light-green rounded-md p-3 mt-4'>
-                    <div className='bg-custom-yellow text-white flex items-center justify-center w-10 rounded-full py-2'>
-                        <BsFillFileEarmarkRichtextFill className='text-2xl' />
+                    <div className='bg-custom-yellow text-white flex items-center justify-center w-7 rounded-full p-1'>
+                        <BsFillFileEarmarkRichtextFill className='text-xl' />
                     </div>
                     <div className='text-white px-2'>{data.content}</div>
                 </div>

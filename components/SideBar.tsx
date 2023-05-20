@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 
 
 export default function SideBar() {
-    const [homeActive, setHomeActive] = useState<boolean>(false);
+    const [homeActive, setHomeActive] = useState<boolean>(true);
     const [notesActive, setNotesActive] = useState<boolean>(false);
 
     const handleClick = (route: any) => {
