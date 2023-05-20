@@ -27,7 +27,7 @@ export default function Notes({ data }: PageProps) {
                     </Link>
                 ))}
             </div>
-            <div className='h-20 flex items-center space-x-2 justify-center border-4 border-dashed rounded-md m-10 mt-10 p-5'>
+            <div className='h-20 flex items-center space-x-2 justify-center border-4 border-dashed rounded-md m-10 mt-10 p-5 cursor-pointer hover:border-light-green'>
                 <AiFillPlusCircle className='icon' />
                 <p>Add New Note</p>
             </div>

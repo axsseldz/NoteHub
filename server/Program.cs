@@ -4,7 +4,12 @@ global using server.Dtos.Todo;
 global using Microsoft.EntityFrameworkCore;
 global using server.Data;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(p=>p.AddPolicy("corspolicy", build=>{
+    build.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+}));
 
 
 // Add services to the container.
@@ -25,6 +30,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("corspolicy");
 
 app.UseHttpsRedirection();
 

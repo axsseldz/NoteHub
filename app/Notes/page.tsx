@@ -2,6 +2,6 @@
 
 export default function page() {
     return (
-        <div>single note</div>
+        <div></div>
     )
 }
