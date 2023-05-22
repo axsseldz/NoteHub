@@ -1,11 +1,10 @@
 import Notes from "@/components/Notes";
 
-const getNotes = async () => {
+export const getNotes = async () => {
     const response = await fetch('http://localhost:5123/api/TodoList/GetAll?timestamp=' + Date.now());
     const data = await response.json();
     return data.data
 }
-
 
 export default async function NotesLayout({
     children,

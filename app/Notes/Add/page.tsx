@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { SiMicrosoftonenote } from 'react-icons/si'
 import { BsFillSendCheckFill } from 'react-icons/bs'
 
+
 const createNote = async (title: any, content: any) => {
     try {
         const response = await fetch("http://localhost:5123/api/TodoList", {
@@ -27,12 +28,19 @@ const createNote = async (title: any, content: any) => {
 export default function page() {
     const [title, setTitle] = useState<string>("")
     const [content, setContent] = useState<string>("")
+    const [emptyField, setEmptyField] = useState<boolean>(false);
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+
+        if (title === "" || content === "") {
+            setEmptyField(true)
+            return
+        }
+
         await createNote(title, content)
-        await setTitle("")
-        await setContent("")
+        setTitle("")
+        setContent("")
 
     }
 
@@ -45,7 +53,11 @@ export default function page() {
                     </div>
                     <h1 className='text-xl text-white'>Create a new note</h1>
                 </div>
-
+                {emptyField && (
+                    <div className='bg-red-100 rounded-md p-2 mx-5 flex justify-center'>
+                        <h1 className='text-red-600'>Please ensure that all fields are filled in.</h1>
+                    </div>
+                )}
                 <form className='flex flex-col p-4 space-y-5 w-[650px] h-80 mt-8' onSubmit={e => handleSubmit(e)} >
 
                     <div className='p-2 w-100 flex items-center space-x-1'>

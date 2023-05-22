@@ -29,8 +29,8 @@ export default function Note({ id }: PageProps) {
 
     return (
         <Link href="/Notes">
-            <div onClick={handleClick}>
-                <MdDeleteForever className='text-2xl text-red-600 hover:text-red-700 cursor-pointer hover:text-3xl' />
+            <div onClick={handleClick} className='hover:bg-red-600 hover:text-white text-red-600 rounded-full p-1'>
+                <MdDeleteForever className='text-2xl cursor-pointer' />
             </div>
         </Link>
     )
