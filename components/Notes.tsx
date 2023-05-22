@@ -1,8 +1,11 @@
+'use client'
+
 import { FaSort } from 'react-icons/fa'
 import { FiSearch } from 'react-icons/fi'
 import { AiFillPlusCircle } from 'react-icons/ai'
 import SingleNote from './SingleNote';
 import Link from 'next/link';
+import React, { useState } from 'react'
 
 type PageProps = {
     data: any
@@ -10,13 +13,39 @@ type PageProps = {
 
 
 export default function Notes({ data }: PageProps) {
+    const [sort, setSort] = useState<boolean>(false)
+
+    const handleClick = () => {
+        setSort(!sort)
+
+    }
+
+    if (sort) {
+        data = data.sort((a: any, b: any) => {
+            const dateA = new Date(a.createdDate).getTime();
+            const dateB = new Date(b.createdDate).getTime();
+            return dateB - dateA;
+        });
+    } else {
+        data = data.sort((a: any, b: any) => {
+            const dateA = new Date(a.createdDate).getTime();
+            const dateB = new Date(b.createdDate).getTime();
+            return dateA - dateB;
+        });
+    }
+
 
     return (
         <div className="bg-white-dusk border min-w-[435px] h-screen pb-5 pt-10">
             <div className='flex justify-between p-6 h-24'>
                 <h1 className='text-2xl'>All Notes</h1>
-                <div className='flex space-x-2'>
-                    <FaSort className='icon' />
+                <div className='flex space-x-2 relative'>
+                    <div onClick={handleClick} className='flex '>
+                        {sort && (
+                            <p className='absolute right-[70px] top-[5px] text-sm text-green-500'>Sorted</p>
+                        )}
+                        <FaSort className={`text-3xl text-light-gray hover:text-green-500 ${sort && 'text-green-500'}`} />
+                    </div>
                     <FiSearch className='icon' />
                 </div>
             </div>
