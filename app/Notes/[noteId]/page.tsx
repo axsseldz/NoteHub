@@ -6,15 +6,8 @@ import { CiBoxList } from 'react-icons/ci'
 import transformDateTime from '@/functions/DateTime'
 import FullNote from '@/components/FullNote'
 import React, { useState, useEffect } from 'react'
+import getData from '../../../API/Requests'
 
-export const getData = async (id: any) => {
-    const timestamp = Date.now();
-    const url = `http://localhost:5123/api/TodoList/${id}?timestamp=${encodeURIComponent(timestamp)}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data.data
-
-}
 
 type PageProps = {
     params: {
@@ -74,3 +67,4 @@ export default function NotePage({ params: { noteId } }: PageProps) {
         </div>
     )
 }
+

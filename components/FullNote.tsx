@@ -6,7 +6,7 @@ import { MdDateRange, MdEditDocument } from 'react-icons/md'
 import Note from './Note'
 import { GlobalContext } from './Notes'
 import { getNotes } from './Notes'
-import { getData } from '@/app/Notes/[noteId]/page'
+import getData from '@/API/Requests'
 
 const editNote = async (title: any, content: any, id: any) => {
     try {
