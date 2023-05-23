@@ -7,7 +7,7 @@ import { GlobalContext } from '@/components/Notes'
 import { getNotes } from '@/components/Notes'
 
 
-export default function page() {
+export default function Page() {
     const [title, setTitle] = useState<string>("")
     const [content, setContent] = useState<string>("")
     const [emptyField, setEmptyField] = useState<boolean>(false);

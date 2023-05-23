@@ -28,7 +28,7 @@ export default function NotePage({ params: { noteId } }: PageProps) {
             }));
         }
         getD()
-    }, [])
+    }, [noteId])
 
 
     return (
