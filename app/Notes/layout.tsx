@@ -1,22 +1,11 @@
+import React from 'react'
 import Notes from "@/components/Notes";
 
-export const getNotes = async () => {
-    const response = await fetch('http://localhost:5123/api/TodoList/GetAll?timestamp=' + Date.now());
-    const data = await response.json();
-    return data.data
-}
-
-export default async function NotesLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    const data = await getNotes();
-    console.log(data)
+export default async function NotesLayout({ children }: { children: React.ReactNode; }) {
 
     return (
         <section className="flex">
-            <Notes data={data} />
+            <Notes child={children} />
             {children}
         </section>
     );

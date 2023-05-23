@@ -1,12 +1,29 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { SiMicrosoftonenote } from 'react-icons/si'
 import { BsFillSendCheckFill } from 'react-icons/bs'
+import { GlobalContext } from '@/components/Notes'
+import { getNotes } from '@/components/Notes'
 
 
-const createNote = async (title: any, content: any) => {
-    try {
+export default function page() {
+    const [title, setTitle] = useState<string>("")
+    const [content, setContent] = useState<string>("")
+    const [emptyField, setEmptyField] = useState<boolean>(false);
+
+    const { setData } = useContext(GlobalContext)
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault()
+
+        if (title === "" || content === "") {
+            setEmptyField(true)
+            return
+        }
+
+
+        // Create New Note API Request
         const response = await fetch("http://localhost:5123/api/TodoList", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -18,27 +35,10 @@ const createNote = async (title: any, content: any) => {
 
         const data = await response.json();
         console.log(data);
-    } catch (error) {
-        console.error(error);
-    }
 
-}
+        const secondResponse = await getNotes()
+        setData(secondResponse)
 
-
-export default function page() {
-    const [title, setTitle] = useState<string>("")
-    const [content, setContent] = useState<string>("")
-    const [emptyField, setEmptyField] = useState<boolean>(false);
-
-    const handleSubmit = async (e: any) => {
-        e.preventDefault()
-
-        if (title === "" || content === "") {
-            setEmptyField(true)
-            return
-        }
-
-        await createNote(title, content)
         setTitle("")
         setContent("")
 
@@ -89,7 +89,6 @@ export default function page() {
                         <BsFillSendCheckFill className='text-white text-xl' />
                     </button>
                 </form>
-
             </div>
         </div>
     )

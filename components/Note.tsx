@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link';
-import React, { useState } from 'react'
 import { MdDeleteForever } from 'react-icons/md'
+import React, { useContext } from 'react'
+import { getNotes } from './Notes';
+import { GlobalContext } from './Notes';
 
 
 const deleteNote = async (id: any) => {
@@ -23,8 +25,12 @@ type PageProps = {
 }
 
 export default function Note({ id }: PageProps) {
+    const { setData } = useContext(GlobalContext)
+
     const handleClick = async () => {
         await deleteNote(id);
+        const secondResponse = await getNotes()
+        setData(secondResponse)
     };
 
     return (

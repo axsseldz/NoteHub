@@ -1,15 +1,17 @@
+'use client'
+
 import { AiFillCaretDown, AiOutlineBold, AiOutlineUnderline, AiOutlineUpload } from 'react-icons/ai'
 import { BsJustifyLeft, BsJustifyRight, BsReverseListColumnsReverse } from 'react-icons/bs'
 import { CiBoxList } from 'react-icons/ci'
 import transformDateTime from '@/functions/DateTime'
 import FullNote from '@/components/FullNote'
+import React, { useState, useEffect } from 'react'
 
-const getData = async (id: any) => {
+export const getData = async (id: any) => {
     const timestamp = Date.now();
     const url = `http://localhost:5123/api/TodoList/${id}?timestamp=${encodeURIComponent(timestamp)}`;
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data.data)
     return data.data
 
 }
@@ -20,17 +22,20 @@ type PageProps = {
     }
 }
 
-export default async function NotePage({ params: { noteId } }: PageProps) {
-    const data = await getData(noteId);
-    const date = transformDateTime(data.createdDate)
+export default function NotePage({ params: { noteId } }: PageProps) {
+    const [noteData, setNoteData] = useState<any>([])
 
-    if (!data) {
-        return (
-            <div className="min-w-[748px]">
-                <h1>Not available</h1>
-            </div>
-        );
-    }
+    useEffect(() => {
+        const getD = async () => {
+            const response = await getData(noteId)
+            setNoteData(response)
+            setNoteData((noteData: { createdDate: any }) => ({
+                ...noteData,
+                createdDate: transformDateTime(noteData.createdDate)
+            }));
+        }
+        getD()
+    }, [])
 
 
     return (
@@ -64,7 +69,7 @@ export default async function NotePage({ params: { noteId } }: PageProps) {
 
                     <AiOutlineUpload className='text-lg' />
                 </div>
-                <FullNote data={data} date={date} id={noteId} />
+                <FullNote data={noteData} date={noteData.createdDate} id={noteId} setNoteData={setNoteData} />
             </div>
         </div>
     )

@@ -1,9 +1,12 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { BsFillFileEarmarkRichtextFill, BsFillSendCheckFill } from 'react-icons/bs'
 import { MdDateRange, MdEditDocument } from 'react-icons/md'
 import Note from './Note'
+import { GlobalContext } from './Notes'
+import { getNotes } from './Notes'
+import { getData } from '@/app/Notes/[noteId]/page'
 
 const editNote = async (title: any, content: any, id: any) => {
     try {
@@ -30,14 +33,17 @@ type PageProps = {
     data: any
     date: any
     id: any
+    setNoteData: any
 }
 
-export default function FullNote({ data, date, id }: PageProps) {
+export default function FullNote({ data, date, id, setNoteData }: PageProps) {
     const [edit, setEdit] = useState<boolean>(false);
     const [title, setTitle] = useState<string>(data.title);
     const [content, setContent] = useState<string>(data.content);
     const [editedData, setEditedData] = useState<any>(data);
     const [emptyField, setEmptyField] = useState<boolean>(false);
+
+    const { setData } = useContext(GlobalContext)
 
     useEffect(() => {
         setTitle(data.title);
@@ -57,8 +63,15 @@ export default function FullNote({ data, date, id }: PageProps) {
             return
         }
 
-
         await editNote(title, content, id)
+
+        const response = await getNotes()
+        setData(response)
+
+        const secondResponse = await getData(id)
+        setNoteData(secondResponse)
+
+
         setTitle("")
         setContent("")
         setEdit(false)
