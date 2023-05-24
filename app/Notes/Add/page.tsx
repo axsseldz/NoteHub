@@ -24,7 +24,7 @@ export default function Page() {
 
 
         // Create New Note API Request
-        const response = await fetch("https://note-hub.vercel.app/api/TodoList", {
+        const response = await fetch("https://note-hub-git-main-axsseldz.vercel.app/api/TodoList", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
