@@ -9,7 +9,7 @@ import { GlobalContext } from './Notes';
 
 const deleteNote = async (id: any) => {
     try {
-        const response = await fetch(`https://note-hub-git-main-axsseldz.vercel.app/api/TodoList/${id}`, {
+        const response = await fetch(`http://localhost:5123/api/TodoList/${id}`, {
             method: 'DELETE'
         });
 

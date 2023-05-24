@@ -10,7 +10,7 @@ import getData from '@/API/Requests'
 
 const editNote = async (title: any, content: any, id: any) => {
     try {
-        const response = await fetch(`https://note-hub-git-main-axsseldz.vercel.app/api/TodoList?timestamp=' + Date.now()`, {
+        const response = await fetch(`http://localhost:5123/api/TodoList?timestamp=' + Date.now()`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

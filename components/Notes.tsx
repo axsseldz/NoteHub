@@ -10,7 +10,7 @@ export const GlobalContext = React.createContext<any>("")
 
 
 export const getNotes = async () => {
-    const response = await fetch('https://note-hub-git-main-axsseldz.vercel.app/api/TodoList/GetAll?timestamp=' + Date.now());
+    const response = await fetch('http://localhost:5123/api/TodoList/GetAll?timestamp=' + Date.now());
     const data = await response.json();
     return data.data
 }
