@@ -7,8 +7,9 @@ global using server.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(p=>p.AddPolicy("corspolicy", build=>{
-    build.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader();
+builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
+{
+    build.WithOrigins("https://note-hub.vercel.app/").AllowAnyMethod().AllowAnyHeader();
 }));
 
 
