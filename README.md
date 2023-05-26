@@ -33,4 +33,8 @@ NoteHub is a feature-rich note-taking web application that provides users with a
 
 ## Add Note
 <img src='./public/images/add-note.png'/>
+  
+ 
+## Contributing
+If you would like to contribute to this app, please create a pull request.
 
