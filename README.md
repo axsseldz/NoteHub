@@ -13,10 +13,7 @@ NoteHub is a feature-rich note-taking web application that provides users with a
   
   
 ## Features
-### Create new notes with ease.
-### Edit existing notes to update content.
-### Delete notes that are no longer needed.
-### Clean and intuitive user interface.
-### Visual appeal with Tailwind CSS.
-### Backend functionality implemented with .NET 7 and C#.
-### Reliable and secure note storage with SQL Server.
+### -Create new notes with ease.
+### -Edit and delete existing notes to update content.
+### -Backend functionality implemented with .NET 7 and C#.
+### -Reliable and secure note storage with SQL Server.
