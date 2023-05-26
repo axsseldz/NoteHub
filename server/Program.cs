@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(p => p.AddPolicy("corspolicy", build =>
 {
-    build.WithOrigins("http://localhost:3000", "https://note-hub.vercel.app", "https://note-hub-git-main-axsseldz.vercel.app", "https://note-btdq85vem-axsseldz.vercel.app/").AllowAnyMethod().AllowAnyHeader();
+    build.WithOrigins("http://localhost:3000", "https://note-hub-frontend.vercel.app").AllowAnyMethod().AllowAnyHeader();
 }));
 
 
